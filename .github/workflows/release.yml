@@ -26,7 +26,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      # vale sync wants the zip's top directory named after the zip.
+      # vale sync rejects a zip whose top directory differs from the zip's name.
       - name: Package
         run: |
           mkdir -p dist/AiWriting/styles
