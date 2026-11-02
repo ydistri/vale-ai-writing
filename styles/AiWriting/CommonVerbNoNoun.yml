@@ -1,0 +1,10 @@
+extends: existence
+message: "'%s': consider negating the verb, as in 'doesn't take a parameter'."
+level: warning
+ignorecase: true
+nonword: true
+# The verbs human documentation uses with "no" on the object ("has no
+# effect", "takes no arguments", "returns no value"). They stay a warning:
+# the standard library writes them too, at about a tenth of orc's rate.
+tokens:
+  - '\b(?:has|have|had|having|take|takes|took|taken|taking|contain|contains|contained|containing|return|returns|returned|returning|match|matches|matched|matching) no (?!(?:more|less|fewer|longer|sooner|later|earlier|better|worse|faster|slower|higher|lower|further|deeper|closer|harder|easier|one|matter|doubt|way|point|reason|need|end)\b)[`a-z][-a-z]*'

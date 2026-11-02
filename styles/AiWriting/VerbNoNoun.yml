@@ -1,0 +1,18 @@
+extends: sequence
+message: "'no' moved onto the object of '%s'. Negate the verb instead, as in 'doesn't call a function'."
+level: warning
+ignorecase: true
+# A verb, then "no", then a noun, by part of speech, so verbs nobody listed
+# match too ("moves no counter", "reaches no field"). Measured on Go comments:
+# 0.15 hits per 1000 words in a standard library sample, 1.1 in orc.
+#
+# The verb lookahead drops forms of "be" ("there is no way"), verbs that take
+# a whole clause ("means no run happened", "ensure no goroutines leak"), and
+# the verbs CommonVerbNoNoun reads. The noun lookahead drops degree words
+# ("goes no further").
+tokens:
+  - tag: VB|VBD|VBZ|VBP|VBG|VBN
+    pattern: (?!(?:is|are|was|were|be|been|being|am|mean|means|meant|imply|implies|implied|ensure|ensures|ensured|ensuring|check|checks|verify|verifies|guarantee|guarantees|assert|asserts|confirm|confirms|say|says|said|has|have|had|having|take|takes|took|taken|taking|contain|contains|contained|containing|return|returns|returned|returning|match|matches|matched|matching)$)\w+
+  - pattern: no
+  - tag: NN|NNS|JJ
+    pattern: (?!(?:more|less|fewer|longer|sooner|later|earlier|better|worse|faster|slower|higher|lower|further|deeper|closer|harder|easier|one|matter|doubt|way|point|reason|need|end)$)\w+

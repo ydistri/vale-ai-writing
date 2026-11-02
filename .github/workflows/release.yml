@@ -1,0 +1,37 @@
+name: release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install vale
+        run: curl -fsSL https://github.com/errata-ai/vale/releases/download/v3.24.0/vale_3.24.0_Linux_64-bit.tar.gz | sudo tar -xz -C /usr/local/bin vale
+      - run: test/run.sh
+
+  release:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      # vale sync wants the zip's top directory named after the zip.
+      - name: Package
+        run: |
+          mkdir -p dist/AiWriting/styles
+          cp -R styles/AiWriting dist/AiWriting/styles/
+          cd dist && zip -qr AiWriting.zip AiWriting
+      - run: gh release create "$GITHUB_REF_NAME" dist/AiWriting.zip --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}

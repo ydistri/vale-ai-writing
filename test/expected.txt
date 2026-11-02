@@ -1,0 +1,6 @@
+test/fixtures.md:1:10:AiWriting.VerbNoNoun:'no' moved onto the object of 'calls'. Negate the verb instead, as in 'doesn't call a function'.
+test/fixtures.md:3:10:AiWriting.VerbNoNoun:'no' moved onto the object of 'moves'. Negate the verb instead, as in 'doesn't call a function'.
+test/fixtures.md:5:14:AiWriting.CommonVerbNoNoun:'takes no parameter': consider negating the verb, as in 'doesn't take a parameter'.
+test/fixtures.md:7:11:AiWriting.CommonVerbNoNoun:'has no column': consider negating the verb, as in 'doesn't take a parameter'.
+test/fixtures.md:15:28:AiWriting.CommaAndClause:', and' joins two clauses. End the sentence at the comma, or drop the comma.
+test/fixtures.md:17:18:AiWriting.CommaAndClause:', and' joins two clauses. End the sentence at the comma, or drop the comma.
